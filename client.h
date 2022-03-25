@@ -22,5 +22,6 @@ class Client{
     
     public:
     Client();
-    void conection);
+    void conection();
 };
+#endif

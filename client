@@ -1,11 +1,11 @@
-# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp"
+# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp"
 # 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game//"
 # 1 "<built-in>"
 # 1 "<command-line>"
 # 1 "/usr/include/stdc-predef.h" 1 3 4
 # 1 "<command-line>" 2
-# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp"
-# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 1
+# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp"
+# 1 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 1
 
 
 
@@ -1565,7 +1565,7 @@ extern __pid_t gettid (void) throw ();
 # 1171 "/usr/include/unistd.h" 2 3 4
 
 }
-# 5 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 5 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/stdio.h" 1 3 4
 # 27 "/usr/include/stdio.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 1 3 4
@@ -2269,7 +2269,7 @@ extern int __uflow (FILE *);
 extern int __overflow (FILE *, int);
 # 873 "/usr/include/stdio.h" 3 4
 }
-# 6 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 6 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/x86_64-linux-gnu/sys/socket.h" 1 3 4
 # 24 "/usr/include/x86_64-linux-gnu/sys/socket.h" 3 4
 extern "C" {
@@ -3314,7 +3314,7 @@ extern int sockatmark (int __fd) throw ();
 extern int isfdtype (int __fd, int __fdtype) throw ();
 # 272 "/usr/include/x86_64-linux-gnu/sys/socket.h" 3 4
 }
-# 7 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 7 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/c++/9/stdlib.h" 1 3
 # 36 "/usr/include/c++/9/stdlib.h" 3
 # 1 "/usr/include/c++/9/cstdlib" 1 3
@@ -4375,7 +4375,7 @@ using std::system;
 
 using std::wcstombs;
 using std::wctomb;
-# 8 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 8 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/netinet/in.h" 1 3 4
 # 22 "/usr/include/netinet/in.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/stdint-uintn.h" 1 3 4
@@ -4810,7 +4810,7 @@ extern int setsourcefilter (int __s, uint32_t __interface_addr,
 
 
 }
-# 9 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 9 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/string.h" 1 3 4
 # 26 "/usr/include/string.h" 3 4
 # 1 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 1 3 4
@@ -5202,7 +5202,7 @@ extern "C++" const char *basename (const char *__filename)
      throw () __asm ("basename") __attribute__ ((__nonnull__ (1)));
 # 499 "/usr/include/string.h" 3 4
 }
-# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/c++/9/iostream" 1 3
 # 36 "/usr/include/c++/9/iostream" 3
        
@@ -31375,7 +31375,7 @@ namespace std __attribute__ ((__visibility__ ("default")))
 
 
 }
-# 11 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 11 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/netdb.h" 1 3 4
 # 32 "/usr/include/netdb.h" 3 4
 # 1 "/usr/include/rpc/netdb.h" 1 3 4
@@ -31853,7 +31853,7 @@ extern int gai_cancel (struct gaicb *__gaicbp) throw ();
 
 
 }
-# 12 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 12 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 # 1 "/usr/include/arpa/inet.h" 1 3 4
 # 30 "/usr/include/arpa/inet.h" 3 4
 extern "C" {
@@ -31930,124 +31930,85 @@ extern char *inet_nsap_ntoa (int __len, const unsigned char *__cp,
 
 
 }
-# 13 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h" 2
+# 13 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h" 2
 
 
 
 
-
-# 17 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.h"
-class Server{
+# 16 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.h"
+class Client{
     private:
-    int server, new_socket;
-    char value_read;
-    struct sockaddr_in server_address, client_address;
-    unsigned int client_len;
-    int opt;
-    int server_len;
+    int clientsocket;
+    int len_response;
+    struct sockaddr_in serverAddress;
     char buffer_reciever[1024];
 
-
     public:
-    Server();
-    void handeling_message(char message[1024]);
-
+    Client();
+    void conection();
 };
-# 2 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp" 2
+# 2 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp" 2
 
 using namespace std;
 
-Server::Server() {
+Client::Client(){
 
-    char *buffer = new char[1024];
-    buffer = "Hi, this is Server";
+    memset(&serverAddress, 0, sizeof(serverAddress));
 
-    server = socket(
-# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp" 3 4
-                   2
-# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp"
-                          , 
-# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp" 3 4
-                            SOCK_STREAM
-# 10 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp"
-                                       , 0);
-
-    if (server < 0){
-        cout << "\n Server Error \n"
-             << endl;
-    }
-    else{
-        cout << "\n Server Initialized \n"
-             << endl;
-    }
-
-
-    memset(&server_address, 0, sizeof(server_len));
-
-
-    server_address.sin_family = 
-# 25 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp" 3 4
-                               2
-# 25 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/server.cpp"
-                                      ;
-    server_address.sin_addr.s_addr = inet_addr("192.168.100.134");
-    server_address.sin_port = htons(8080);
-
-
-    if (bind(server, (struct sockaddr*)&server_address, sizeof(server_address)) < 0)
-    {
-        cout << "\n Bind error" << endl;
-    }
-    else
-    {
-        cout << "Bind succesfull" << endl;
-    }
-
-
-    if (listen(server, 3) < 0)
-    {
-        cout<<"\n Error listening \n"<<endl;
-    }
-    else{
-        :cout<<"\n Started to listen \n"<<:endl;
-    }
-
-
-    while (true)
-    {
-        new_socket = accept(server, (struct sockaddr *)&client_address, &client_len);
-        if(new_socket < 0)
-        {
-            cout<<"\n Error to accept client \n"<<endl;
-        }
-        else
-        {
-            cout<<"\n CLient accepted \n"<<endl;
-        }
-
-
-        while (true)
-        {
-            int len_request = read(new_socket, buffer_reciever, sizeof(buffer_reciever));
-            if(len_request == -1)
-            {
-                cout<<"Could not read message"<<endl;
-            }
-            else if (len_request == 0){
-                cout<<"Socket closed"<<endl;
-                close(new_socket);
-                break;
-            }
-            else{
-                write(new_socket,buffer_trasmiter,strlen(buffer_trasmiter));
-                cout << "SERVER" << buffer_reciever << endl;
-                handeling_message(buffer_reciever);
-            }
-        }
-    }
+    serverAddress.sin_family = 
+# 9 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp" 3 4
+                              2
+# 9 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp"
+                                     ;
+    serverAddress.sin_addr.s_addr = inet_addr("192.168.100.134");
 }
 
-void Server::handeling_message(char message[1024]){
+void Client::conection(){
 
-    std::cout<<"Mensaje: "<<message<<" en handeling message"<<std::endl;
+    char *buffer_trasmiter = new char[1024];
+    buffer_trasmiter = "Hi, this is Client";
+
+    clientsocket = socket(
+# 18 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp" 3 4
+                         2
+# 18 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp"
+                                , 
+# 18 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp" 3 4
+                                  SOCK_STREAM
+# 18 "/home/valesska/Desktop/Datos II/Proyectos/Proyecto 1/Memory_Game/client.cpp"
+                                             , 0);
+
+    if (clientsocket < 0)
+    {
+        cout<<"\n Socket creation error \n"<<endl;
+    }
+    else{
+        cout<<"\n Socket connection successful \n"<<endl;
+
+    }
+
+    if (connect(clientsocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0)
+    {
+        cout<<"\n Connection failed \n"<<endl;
+    }
+    else{
+        cout<<"\n Connection to server succesfully \n"<<endl;
+    }
+
+    write(clientsocket, buffer_trasmiter, strlen(buffer_trasmiter));
+    cout<<"\n Hello message sent \n"<<endl;
+
+    len_response = read(clientsocket, buffer_reciever, sizeof(buffer_reciever));
+
+    if(len_response==-1){
+        cout<<"Could not read message"<<std::endl;
+    }
+    else if (len_response==0){
+        cout<<"Empty message"<<endl;
+    }
+    else{
+        cout<<buffer_reciever<<endl;
+    }
+
+    close(clientsocket);
 }

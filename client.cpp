@@ -7,13 +7,14 @@ Client::Client(){
     memset(&serverAddress, 0, sizeof(serverAddress));
 
     serverAddress.sin_family = AF_INET;
-    serverAddress.sin_addr.s_addr = inet_addr(server_ip());
+    serverAddress.sin_addr.s_addr = inet_addr(server_ip);
 }
 
 void Client::conection(){
 
     char *buffer_trasmiter = new char[1024];
     buffer_trasmiter = "Hi, this is Client";
+    
     clientsocket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (clientsocket < 0)
