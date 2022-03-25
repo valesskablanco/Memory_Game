@@ -8,12 +8,13 @@ Client::Client(){
 
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_addr.s_addr = inet_addr(server_ip);
+    serverAddress.sin_port = htons(PORT);
 }
 
 void Client::conection(){
 
     char *buffer_trasmiter = new char[1024];
-    buffer_trasmiter = "Hi, this is Client";
+    strcpy(buffer_trasmiter,"Hi, this is Client");
     
     clientsocket = socket(AF_INET, SOCK_STREAM, 0);
 

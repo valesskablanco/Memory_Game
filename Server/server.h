@@ -11,8 +11,8 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
-#define PORT 8080
-#define server_ip "192.168.100.134"
+#define PORT 10000
+#define server_ip "127.0.0.1"
 
 class Server{
     private: 
