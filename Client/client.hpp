@@ -17,12 +17,13 @@
 class Client{
     private:
     int clientsocket;
-    int len_response;
     struct sockaddr_in serverAddress;
-    char buffer_reciever[1024];
+    char buffer[1024];
     
     public:
     Client();
-    void conection();
+    void Send();
+    char Recieve();
+    void CloseSocket();
 };
 #endif

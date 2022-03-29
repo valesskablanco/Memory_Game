@@ -1,7 +1,11 @@
 #include "server.hpp"
 
-int main(int argc, char const *argv[])
+int main()
 {
-    Server *server = new Server();
-    return 0;
+    Server *Servidor = new Server();
+    while(true)
+    {
+        Servidor->Recieve();
+        Servidor->Send();
+    }
 }

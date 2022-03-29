@@ -9,13 +9,9 @@ Client::Client(){
     serverAddress.sin_family = AF_INET;
     serverAddress.sin_addr.s_addr = inet_addr(server_ip);
     serverAddress.sin_port = htons(PORT);
-}
 
-void Client::conection(){
+    char *buffer = new char[1024];
 
-    char *buffer_trasmiter = new char[1024];
-    strcpy(buffer_trasmiter,"Hi, this is Client");
-    
     clientsocket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (clientsocket < 0)
@@ -24,31 +20,38 @@ void Client::conection(){
     }
     else{
         cout<<"\n Socket connection successful \n"<<endl;
+
+        if (connect(clientsocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0)
+        {
+            cout<<"\n Connection failed \n"<<endl;
+        }
+        else{
+            cout<<"\n Connection to server succesfully \n"<<endl;
+        }
         
     }
+}
 
-    if (connect(clientsocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0)
-    {
-        cout<<"\n Connection failed \n"<<endl;
-    }
-    else{
-        cout<<"\n Connection to server succesfully \n"<<endl;
-    }
+void Client::Send(){
 
-    write(clientsocket, buffer_trasmiter, strlen(buffer_trasmiter));
-    cout<<"\n Hello message sent \n"<<endl;
+    cout << "Write your message: ";
+    cin >> this->buffer;
+    write(clientsocket, buffer, strlen(buffer));
+    memset(buffer, 0, sizeof(buffer));
+    cout<<"\n Message sent \n"<<endl;
 
-    len_response = read(clientsocket, buffer_reciever, sizeof(buffer_reciever));
+}
+char Client::Recieve(){
 
-    if(len_response==-1){
-        cout<<"Could not read message"<<std::endl;
-    }
-    else if (len_response==0){//did not send 
-        cout<<"Empty message"<<endl;
-    }
-    else{
-        cout<<buffer_reciever<<endl;
-    }
+
+    read(clientsocket, buffer, sizeof(buffer));
+    cout << "Server says: " << buffer << endl;
+    memset(buffer, 0, sizeof(buffer));
+    return *buffer;
+}
+
+void Client::CloseSocket(){
 
     close(clientsocket);
+    cout << "Socket closed" << endl;
 }

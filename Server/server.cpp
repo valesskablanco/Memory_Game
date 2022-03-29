@@ -5,7 +5,6 @@ using namespace std;
 Server::Server() {
 
     char *buffer = new char[1024];
-    strcpy(buffer, "Hi, this is Server");
 
     server = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -40,42 +39,24 @@ Server::Server() {
         {
             cout<<"\n Error listening \n"<<endl;
         }
-        else{
+        else
+        {
 
             cout<<"\n Started to listen \n"<<endl;
 
             //Accept connections
             while (true)
             {
-                new_socket = accept(server, (struct sockaddr *)&client_address, &client_len);
-                if(new_socket < 0)                   
+                client = accept(server, (struct sockaddr *)&client_address, &client_len);
+                if(client < 0)                   
                 {
                     cout<<"\n Error to accept client \n"<<endl;
                 }
                 else
                 {
-                    cout<<"\n CLient accepted \n"<<endl;
+                    cout<<"\n Client accepted \n"<<endl;
                 }
-            
-
-                while (true)
-                {
-                    int len_request = read(new_socket, buffer_reciever, sizeof(buffer_reciever));
-                    if(len_request == -1)
-                    {
-                        cout<<"Could not read message"<<endl;
-                    }
-                    else if (len_request == 0){ //not sent 
-                        cout<<"Socket closed"<<endl;
-                        close(new_socket);
-                        break;
-                    }
-                    else{
-                        write(new_socket, buffer,strlen(buffer));
-                        cout << "SERVER" << buffer_reciever << endl;
-                        handeling_message(buffer_reciever);
-                    }
-                }
+        
             }
 
 
@@ -84,7 +65,26 @@ Server::Server() {
     
 }
 
-void Server::handeling_message(char message[1024]){
-    //handle client messages (pending)
-    std::cout<<"Mensaje: "<<message<<" en handeling message"<<std::endl;
-}
+char Server::Recieve()
+    {
+      read(client, buffer, sizeof(buffer));
+      cout << "El cliente dice: " << buffer << endl;
+      memset(buffer, 0, sizeof(buffer));
+      return *buffer;
+    }
+
+void Server::Send()
+    {
+        cout<<"Escribe el mensaje a enviar: ";
+        cin>>this->buffer;
+
+        write(client, buffer, strlen(buffer));
+        memset(buffer, 0, sizeof(buffer));
+        cout << "Mensaje enviado!" << endl;
+    }
+
+void Server::CloseSocket()
+    {
+        close(client);
+        cout << "Socket cerrado, cliente desconectado." << endl;
+    }

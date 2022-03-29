@@ -16,18 +16,18 @@
 
 class Server{
     private: 
-    int server, new_socket;
-    char value_read;
+    int server, client;
     struct sockaddr_in server_address, client_address;
     unsigned int client_len;
-    int opt;
     int server_len;
-    char buffer_reciever[1024];
+    char buffer[1024];
 
 
     public:
     Server();
-    void handeling_message(char message[1024]);
+    char Recieve();
+    void Send();
+    void CloseSocket();
 
 };
 #endif

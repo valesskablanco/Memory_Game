@@ -1,8 +1,11 @@
 #include "client.hpp"
 
-int main(int argc, char const *argv[])
+int main()
 {
-    Client *client = new Client();
-    client->conection();
-    return 0;
+    Client *Cliente = new Client();
+    while(true)
+    {
+        Cliente->Send();
+        Cliente->Recieve();
+    }
 }
