@@ -18,6 +18,7 @@ class Server{
     private: 
     int server, client;
     struct sockaddr_in server_address, client_address;
+    int message_len;
     unsigned int client_len;
     int server_len;
     char buffer[1024];
@@ -25,9 +26,7 @@ class Server{
 
     public:
     Server();
-    char Recieve();
-    void Send();
+    void RequestHandler(char Request[1024]);
     void CloseSocket();
-
 };
 #endif

@@ -55,33 +55,32 @@ Server::Server() {
                 else
                 {
                     cout<<"\n Client accepted \n"<<endl;
-                }
-        
-            }
 
+                    int message_len = read(client, buffer, sizeof(buffer));
+                    if(message_len == -1){
+                        cout << "Could not read message" << endl;
+                    }else if (message_len == 0){
+                        //did not send
+                        cout << "Socket closed" << endl;
+                        close(client);
+                        break;
+
+                    }else{
+                        write(client,buffer,strlen(buffer));
+                        RequestHandler(buffer);
+                    }
+                    
+                }
+            }
 
         }
     }
     
 }
 
-char Server::Recieve()
-    {
-      read(client, buffer, sizeof(buffer));
-      cout << "El cliente dice: " << buffer << endl;
-      memset(buffer, 0, sizeof(buffer));
-      return *buffer;
-    }
-
-void Server::Send()
-    {
-        cout<<"Escribe el mensaje a enviar: ";
-        cin>>this->buffer;
-
-        write(client, buffer, strlen(buffer));
-        memset(buffer, 0, sizeof(buffer));
-        cout << "Mensaje enviado!" << endl;
-    }
+void Server::RequestHandler(char Request[1024]){
+    cout << "Handling Request for: " << Request << endl;
+}
 
 void Server::CloseSocket()
     {

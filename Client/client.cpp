@@ -41,15 +41,15 @@ void Client::Send(){
     cout<<"\n Message sent \n"<<endl;
 
 }
+/*
 char Client::Recieve(){
-
 
     read(clientsocket, buffer, sizeof(buffer));
     cout << "Server says: " << buffer << endl;
     memset(buffer, 0, sizeof(buffer));
     return *buffer;
 }
-
+*/
 void Client::CloseSocket(){
 
     close(clientsocket);

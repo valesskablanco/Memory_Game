@@ -3,9 +3,8 @@
 int main()
 {
     Client *Cliente = new Client();
-    while(true)
-    {
-        Cliente->Send();
-        Cliente->Recieve();
-    }
+
+    Cliente->Send();
+    Cliente->Recieve();
+    Cliente->CloseSocket();
 }

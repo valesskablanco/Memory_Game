@@ -23,7 +23,6 @@ class Client{
     public:
     Client();
     void Send();
-    char Recieve();
     void CloseSocket();
 };
 #endif
