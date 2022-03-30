@@ -2,7 +2,7 @@
 
 build:
 
-		g++ -o client client.cpp mainC.cpp
+		g++ -o client client.cpp mainC.cpp interface.cpp -lsfml-graphics -lsfml-window -lsfml-system
 
 run:
 

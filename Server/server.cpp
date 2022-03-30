@@ -58,14 +58,18 @@ Server::Server() {
 
                     int message_len = read(client, buffer, sizeof(buffer));
                     if(message_len == -1){
+
                         cout << "Could not read message" << endl;
+
                     }else if (message_len == 0){
+
                         //did not send
                         cout << "Socket closed" << endl;
                         close(client);
                         break;
 
                     }else{
+                        
                         write(client,buffer,strlen(buffer));
                         RequestHandler(buffer);
                     }
