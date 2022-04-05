@@ -1,11 +1,10 @@
 #include "client.hpp"
 #include "interface.hpp"
+#include "button.hpp"
 
 int main()
 {
     Interface *GUI = new Interface();
-    Client *Cliente = new Client();
-
-    Cliente->Send();
-    Cliente->CloseSocket();
+    GUI->run();
+    delete GUI;
 }

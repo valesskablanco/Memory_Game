@@ -1,9 +1,16 @@
 .PONY: build run
 
-build:
+CC=g++
+CPP_OUT=client
+CPP_SRC=*.cpp
+CPP_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
+# -Wall -O2
 
-		g++ -o client client.cpp mainC.cpp interface.cpp -lsfml-graphics -lsfml-window -lsfml-system
+build:
+		@$(CC) -o $(CPP_OUT) $(CPP_SRC) $(CPP_FLAGS)
 
 run:
+		@./$(CPP_OUT)
 
-		./client
+clean:
+		@rm $(CPP_OUT)

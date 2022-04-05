@@ -2,7 +2,8 @@
 
 using namespace std;
 
-Client::Client(){
+Client::Client()
+{
 
     memset(&serverAddress, 0, sizeof(serverAddress));
 
@@ -16,42 +17,40 @@ Client::Client(){
 
     if (clientsocket < 0)
     {
-        cout<<"\n Socket creation error \n"<<endl; 
+        cout << "\n Socket creation error \n"
+             << endl;
     }
-    else{
-        cout<<"\n Socket connection successful \n"<<endl;
+    else
+    {
+        cout << "\n Socket connection successful \n"
+             << endl;
 
         if (connect(clientsocket, (struct sockaddr *)&serverAddress, sizeof(serverAddress)) < 0)
         {
-            cout<<"\n Connection failed \n"<<endl;
+            cout << "\n Connection failed \n"
+                 << endl;
         }
-        else{
-            cout<<"\n Connection to server succesfully \n"<<endl;
+        else
+        {
+            cout << "\n Connection to server succesfully \n"
+                 << endl;
         }
-        
     }
 }
 
-void Client::Send(){
+void Client::send()
+{
 
     cout << "Write your message: ";
     cin >> this->buffer;
     write(clientsocket, buffer, strlen(buffer));
     memset(buffer, 0, sizeof(buffer));
-    cout<<"\n Message sent \n"<<endl;
-
+    cout << "\n Message sent \n"
+         << endl;
 }
-/*
-char Client::Recieve(){
 
-    read(clientsocket, buffer, sizeof(buffer));
-    cout << "Server says: " << buffer << endl;
-    memset(buffer, 0, sizeof(buffer));
-    return *buffer;
-}
-*/
-void Client::CloseSocket(){
-
+void Client::closeSocket()
+{
     close(clientsocket);
     cout << "Socket closed" << endl;
 }
