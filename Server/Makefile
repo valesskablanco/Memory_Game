@@ -2,8 +2,8 @@
 
 build:
 
-		g++ -o server server.cpp mainS.cpp
+		g++ -o main *.cpp
 
 run:
 
-		./server
+		./main

@@ -17,7 +17,7 @@ Interface::Interface()
         //TROUBLESHOTING
         int type = rand() % CARD_TYPES;
         this->buttons[i] = new Button(type, this->window);
-        cout << type;
+        //cout << type;
     }
 }
 
@@ -40,7 +40,7 @@ void Interface::run()
     }
 
     // when game finishes close socket
-    // this->client->CloseSocket();
+    this->client->closeSocket();
 }
 
 void Interface::paintMatrix()

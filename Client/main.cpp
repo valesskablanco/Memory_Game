@@ -6,5 +6,4 @@ int main()
 {
     Interface *GUI = new Interface();
     GUI->run();
-    delete GUI;
 }

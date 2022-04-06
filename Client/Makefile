@@ -1,7 +1,7 @@
 .PONY: build run
 
 CC=g++
-CPP_OUT=client
+CPP_OUT=main
 CPP_SRC=*.cpp
 CPP_FLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 # -Wall -O2

@@ -3,10 +3,10 @@
 
 #define WINDOW_W 800
 #define WINDOW_H 800
-#define BOARD_SIZE 36
+#define BOARD_SIZE 30
 #define BOARD_H 6
-#define BOARD_W 6
-#define CARD_TYPES 4
+#define BOARD_W 5
+#define CARD_TYPES 5
 #define CARD_H 100
 #define CARD_W 75
 #define SPACE_H 15
