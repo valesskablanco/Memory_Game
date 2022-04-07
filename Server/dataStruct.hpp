@@ -2,7 +2,7 @@
 #define dataStruct_h
 
 
-#define CARD_TYPES
+#define CARD_TYPES 5
 #include "card.hpp"
 #include <string>
 #include <iostream>

@@ -17,7 +17,7 @@ class card{
 
     public:
     int i, j, ID, status;
-    char img;
+    std::string img;
     card(int i , int j , int ID , int status);
     void getImage(int ID);
     void print();

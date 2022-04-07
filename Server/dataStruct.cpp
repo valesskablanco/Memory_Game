@@ -1,9 +1,8 @@
 #include "dataStruct.hpp"
 
 using namespace std;
-fstream file;
 
-// card takes 4 bytes
+// card takes 16 bytes
 
 struct Card
 {
@@ -13,22 +12,21 @@ struct Card
 
 void dataStruct::createFile()
 {
-
     int n = 0;
-    for (int i = 1; i <= 6; i++)
+
+    for (int i = 0; i < 6; i++)
     {
-        for (int j = 1; j <= 6; j++)
+        for (int j = 0; j < 6; j++)
         {
             if (n >= CARD_TYPES)
             {
-                n = 0;
-                // setCard(i,j,n,0)
-                n += 1;
+                setCard(i, j, 0, 0);
+                n = 1;
             }
             else
             {
-                // setCard(i,j,n,0)
-                n += 1;
+                setCard(i, j, n, 0);
+                n++;
             }
         }
     }
@@ -39,13 +37,15 @@ void dataStruct::createFile()
 card dataStruct::getCard(int i, int j)
 {
 
-    file.open("cards.txt", ios::in | ios::out | ios::binary);
+    fstream file;
 
-    file.seekg((i - 1) * (4) * sizeof(Card) + (j - 1) * sizeof(Card), ios::beg);
+    file.open("cards.txt", fstream::in | fstream::out | fstream::binary);
+
+    file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), ios::beg);
     char *buffer = (char *)malloc(sizeof(Card));
     file.read(buffer, sizeof(Card));
 
-    Card *c = (Card *)buffer;                       // instance the Struct Card
+    Card *c = (Card *)buffer;                             // instance the Struct Card
     card actualCard = card(c->i, c->j, c->ID, c->status); // instance the Class Card
 
     actualCard.getImage(c->ID);
@@ -60,15 +60,24 @@ card dataStruct::getCard(int i, int j)
 void dataStruct::setCard(int i, int j, int ID, int status)
 {
 
+    fstream file;
+
     Card newCard;
     newCard.i = i;
     newCard.j = j;
     newCard.ID = ID;
     newCard.status = status;
 
-    file.open("cards.txt", ios::in | ios::out | ios::binary);
+    file.open("cards.txt", fstream::in | fstream::out | fstream::binary);
 
-    file.seekg(((i - 1) * (4) * sizeof(Card) + (j - 1) * sizeof(Card)), ios::beg);
-    file.write((char *)&newCard, sizeof(Card));
-    file.close();
+    if (file)
+    {
+        file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card)), fstream::beg);
+        file.write((char *)&newCard, sizeof(Card));
+        file.close();
+    }
+    else
+    {
+        cout << "File can't be reached \n";
+    }
 }
