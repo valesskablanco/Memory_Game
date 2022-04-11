@@ -5,7 +5,11 @@ int main()
 {
     //Server *Servidor = new Server();
 
-    dataStruct *disk = new dataStruct();
+    dataStruct *matrix = new dataStruct();
 
-    disk->createFile();
+    matrix->createFile();
+    matrix->getFCard(0, 0);
+    matrix->getFCard(5, 1);
+    matrix->getFCard(4, 3);
+    matrix->getFCard(5, 6);
 }

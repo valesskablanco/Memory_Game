@@ -12,36 +12,34 @@ struct Card
 
 void dataStruct::createFile()
 {
-    int n = 0;
+    srand(time(0));
+    vector<int> types{0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4};
+    int size = MATRIX_SIZE;
+    int random;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < ROWS; i++)
     {
-        for (int j = 0; j < 6; j++)
+        for (int j = 0; j < COLUMNS; j++)
         {
-            if (n >= CARD_TYPES)
-            {
-                setCard(i, j, 0, 0);
-                n = 1;
-            }
-            else
-            {
-                setCard(i, j, n, 0);
-                n++;
-            }
+            random = rand() % size;
+            int n = types[random];
+            setFCard(i, j, n, 0);
+            types.erase(types.begin() + random);
+            size -= 1;
         }
     }
 }
 
 // reading a binary file
 
-card dataStruct::getCard(int i, int j)
+card dataStruct::getFCard(int i, int j)
 {
 
     fstream file;
 
     file.open("cards.txt", fstream::in | fstream::out | fstream::binary);
 
-    file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), ios::beg);
+    file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), ios::beg); //6 is the amount of cards in a row
     char *buffer = (char *)malloc(sizeof(Card));
     file.read(buffer, sizeof(Card));
 
@@ -57,7 +55,7 @@ card dataStruct::getCard(int i, int j)
     return actualCard;
 }
 
-void dataStruct::setCard(int i, int j, int ID, int status)
+void dataStruct::setFCard(int i, int j, int ID, int status)
 {
 
     fstream file;
@@ -72,7 +70,7 @@ void dataStruct::setCard(int i, int j, int ID, int status)
 
     if (file)
     {
-        file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card)), fstream::beg);
+        file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), fstream::beg); //6 is the amount of cards in a row
         file.write((char *)&newCard, sizeof(Card));
         file.close();
     }

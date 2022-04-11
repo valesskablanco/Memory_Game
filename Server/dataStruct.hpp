@@ -2,7 +2,9 @@
 #define dataStruct_h
 
 
-#define CARD_TYPES 5
+#define MATRIX_SIZE 30
+#define ROWS 5
+#define COLUMNS 6
 #include "card.hpp"
 #include <string>
 #include <iostream>
@@ -21,8 +23,8 @@ class dataStruct {
 
     public:
         void createFile();
-        card getCard(int i, int j);
-        void setCard(int i, int j, int ID, int status);
+        card getFCard(int i, int j);
+        void setFCard(int i, int j, int ID, int status);
 };
 
 #endif
