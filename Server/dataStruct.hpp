@@ -17,7 +17,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <stdlib.h>
-#include <ctime> 
+#include <ctime>
+
+using namespace std;
 
 class dataStruct {
 
@@ -25,6 +27,11 @@ class dataStruct {
         void createFile();
         card getFCard(int i, int j);
         void setFCard(int i, int j, int ID, int status);
+        void createPagedMemory();
+
+    private: 
+        vector<card> memory;
+        int memory_size = 10;
 };
 
 #endif

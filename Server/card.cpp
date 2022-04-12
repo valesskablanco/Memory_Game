@@ -30,5 +30,5 @@ void card::getImage(int ID){
 }
 
 void card::print(){
-    std::cout << this->ID << " " << this->img << " " << this->status << std::endl;
+    std::cout << this->i << " " << this->j << " " << this->ID << " " << this->status << std::endl;
 }

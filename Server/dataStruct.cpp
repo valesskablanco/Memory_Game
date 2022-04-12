@@ -79,3 +79,18 @@ void dataStruct::setFCard(int i, int j, int ID, int status)
         cout << "File can't be reached \n";
     }
 }
+
+void dataStruct::createPagedMemory()
+{
+    //create a vector with the loaded cards
+
+    for (int i = 0; i < this->memory_size; i++)
+    {
+        int rand_i = rand() % ROWS;
+        int rand_j = rand() % COLUMNS;
+        card loaded_card = getFCard(rand_i, rand_j);
+        this->memory.push_back(loaded_card);
+
+        // SE GUARDAN REPETIDAS
+    }
+}
