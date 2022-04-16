@@ -5,8 +5,7 @@ int main()
 {
     //Server *Servidor = new Server();
 
-    dataStruct *matrix = new dataStruct();
+    dataStruct *pagedMemory = new dataStruct();
 
-    matrix->createFile();
-    matrix->createPagedMemory();
+    pagedMemory->printMemory();
 }
