@@ -8,4 +8,5 @@ int main()
     dataStruct *pagedMemory = new dataStruct();
 
     pagedMemory->printMemory();
+    pagedMemory->shuffle();
 }

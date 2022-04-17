@@ -158,7 +158,7 @@ card dataStruct::replaceCard(int i, int j)
 void dataStruct::shuffle()
 {
     this->matrix_size -= 2;
-    this->memory_size /= 3;
+    this->memory_size = this->matrix_size / 3;
     createPagedMemory(this->memory_size);
     cout << "Shuffle completed \n";
 }

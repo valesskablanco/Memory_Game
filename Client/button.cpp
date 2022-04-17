@@ -4,21 +4,79 @@ using namespace sf;
 
 Button::Button() {}
 
-Button::Button(int id, RenderWindow *window)
+Button::Button(int i, int j)
 {
-    this->ID = id;
-    this->window = window;
-    this->rect = new RectangleShape(Vector2f(75.f, 100.f));
-    this->rect->setFillColor(Color::Blue);
+    this->ID[0] = i;
+    this->ID[1] = j;
+    buttonState = BTN_IDLE;
 }
 
-int Button::getID()
+int Button::get_i()
 {
-    return this->ID;
+    return this->ID[0];
 }
 
-void Button::draw(int x, int y)
+int Button::get_j()
 {
-    this->rect->setPosition(x, y);
-    this->window->draw(*this->rect);
+    return this->ID[1];
+}
+
+void Button::draw(RenderWindow *window, int x, int y)
+{
+    RectangleShape rect(Vector2f(75.f, 100.f));
+    rect.setPosition(x, y);
+    rect.setFillColor(Color::Blue);
+
+    if (buttonState != BTN_PRESSED)
+    {
+        if (rect.getGlobalBounds().contains(window->mapPixelToCoords(sf::Mouse::getPosition(*window))))
+        {
+            buttonState = BTN_HOVER;
+
+            // Pressed
+            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+            {
+                buttonState = BTN_PRESSED;
+            }
+        }
+        else
+        {
+            buttonState = BTN_IDLE;
+        }
+    }
+
+    switch (buttonState)
+    {
+    case BTN_HOVER:
+        rect.setFillColor(Color::Black);
+        break;
+
+    case BTN_PRESSED:
+        // quiero mostrar la carta
+        rect.setFillColor(Color::Red);
+        break;
+
+    default:
+        rect.setFillColor(Color::Blue);
+        break;
+    }
+
+    window->draw(rect);
+}
+
+void Button::update(const sf::Vector2f mousePos)
+{ /*
+     this->buttonState = BTN_IDLE;
+
+     // Hover
+     if (this->rect->getGlobalBounds().contains(mousePos))
+     {
+         this->buttonState = BTN_HOVER;
+
+         // Pressed
+         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+         {
+             this->buttonState = BTN_PRESSED;
+         }
+     }*/
 }

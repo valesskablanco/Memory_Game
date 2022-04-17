@@ -3,8 +3,7 @@
 
 
 #define MATRIX_SIZE 30
-#define ROWS 5
-#define COLUMNS 6
+#include "../Utils/common.hpp"
 #include "card.hpp"
 #include <string>
 #include <iostream>

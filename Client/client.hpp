@@ -11,8 +11,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
-#define PORT 10000
-#define server_ip "127.0.0.1"
+#include "../Utils/common.hpp"
 
 class Client{
     private:
