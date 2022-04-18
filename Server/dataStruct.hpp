@@ -29,10 +29,11 @@ class dataStruct {
         void setFCard(int i, int j, int ID, int status);
         void createPagedMemory(int size);
         int isCardinMemory(int i, int j);
-        card getCardfromMemory(int i, int j);
+        char getCardfromMemory(int i, int j);
         void printMemory();
-        card replaceCard(int i, int j);
+        void replaceCard(int i, int j);
         void shuffle();
+        char verify(int i1, int j1, int i2, int j2);
 
     private: 
         vector<card> memory;

@@ -4,8 +4,7 @@ using namespace std;
 
 Server::Server()
 {
-
-    char *buffer = new char[1024];
+    // creating the paged memory
 
     server = socket(AF_INET, SOCK_STREAM, 0);
 
@@ -63,7 +62,8 @@ Server::Server()
                     cout << "\n Client accepted \n"
                          << endl;
 
-                    RequestHandler();
+                    read(client, this->buffer, BUFFER_SIZE);
+                    requestHandler();
                 }
             }
         }
@@ -72,6 +72,33 @@ Server::Server()
 
 void Server::requestHandler()
 {
-    cout << "Handling Request \n" << endl;
-    
+    cout << "Handling Request \n"
+         << endl;
+
+    char operation = this->buffer[0];
+
+    if (operation == '0')
+    {
+        // return encoded img
+        int i = this->buffer[1];
+        int j = this->buffer[2];
+
+        card Card = pagedMemory.getFCard(i, j);
+        int ID = Card.ID;
+
+        Card.encodeImg(Card.getPath(ID)); //PROBLEMA CON ESTO
+        strcpy(this->buffer, Card.img);
+    }
+    else if (operation == '1')
+    {
+        int i1 = this->buffer[1];
+        int j1 = this->buffer[2];
+        int i2 = this->buffer[3];
+        int j3 = this->buffer[4];
+
+        // return 0 or 1
+        strcpy(this->buffer, "verifying equals\0");
+    }
+
+    write(client, this->buffer, strlen(this->buffer));
 }

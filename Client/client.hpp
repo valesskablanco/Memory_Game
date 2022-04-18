@@ -8,6 +8,7 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
@@ -18,11 +19,14 @@ class Client
 private:
     int clientsocket;
     struct sockaddr_in serverAddress;
-    char buffer[1024];
+    char buffer[BUFFER_SIZE];
+    char ch;
 
 public:
     Client();
-    void requestHandler(char Request[1024]);
+    void requestHandler();
+    void send(char Request[BUFFER_SIZE]);
     void closeSocket();
+    void decodeImg(string img);
 };
 #endif

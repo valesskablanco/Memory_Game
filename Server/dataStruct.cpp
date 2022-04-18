@@ -54,7 +54,7 @@ card dataStruct::getFCard(int i, int j)
     Card *c = (Card *)buffer;                             // instance the Struct Card
     card actualCard = card(c->i, c->j, c->ID, c->status); // instance the Class Card
 
-    actualCard.getImage(c->ID);
+    actualCard.getPath(c->ID);
     file.close();
     buffer = NULL;
 
@@ -115,17 +115,17 @@ int dataStruct::isCardinMemory(int i, int j)
     return -1;
 }
 
-card dataStruct::getCardfromMemory(int i, int j)
+char dataStruct::getCardfromMemory(int i, int j)
 {
     int n = isCardinMemory(i, j);
     if (n >= 0)
     {
-        return this->memory[n];
+        return '1';
     }
     else
     {
-        card Card = replaceCard(i, j);
-        return Card;
+        replaceCard(i, j);
+        return '0';
     }
 }
 
@@ -139,7 +139,7 @@ void dataStruct::printMemory()
 }
 
 // this method loads a new card to the memory, replacing a random one
-card dataStruct::replaceCard(int i, int j)
+void dataStruct::replaceCard(int i, int j)
 {
     srand(time(0));
 
@@ -152,7 +152,6 @@ card dataStruct::replaceCard(int i, int j)
 
     card Card = getFCard(i, j);
     this->memory.push_back(Card);
-    return Card;
 }
 
 void dataStruct::shuffle()
@@ -161,4 +160,19 @@ void dataStruct::shuffle()
     this->memory_size = this->matrix_size / 3;
     createPagedMemory(this->memory_size);
     cout << "Shuffle completed \n";
+}
+
+char dataStruct::verify(int i1, int j1, int i2, int j2)
+{
+    card Card1 = getFCard(i1, j1);
+    card Card2 = getFCard(i2, j2);
+
+    if (Card1.ID == Card2.ID)
+    {
+        return '1';
+    }
+    else
+    {
+        return '0';
+    }
 }
