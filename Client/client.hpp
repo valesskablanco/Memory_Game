@@ -11,18 +11,18 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
-#define PORT 10000
-#define server_ip "127.0.0.1"
+#include "../Utils/common.hpp"
 
-class Client{
-    private:
+class Client
+{
+private:
     int clientsocket;
-    int len_response;
     struct sockaddr_in serverAddress;
-    char buffer_reciever[1024];
-    
-    public:
+    char buffer[1024];
+
+public:
     Client();
-    void conection();
+    void requestHandler(char Request[1024]);
+    void closeSocket();
 };
 #endif
