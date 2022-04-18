@@ -13,15 +13,16 @@
 #include <string>
 #include "../Utils/common.hpp"
 
-class Client{
-    private:
+class Client
+{
+private:
     int clientsocket;
     struct sockaddr_in serverAddress;
     char buffer[1024];
-    
-    public:
+
+public:
     Client();
-    void send();
+    void requestHandler(char Request[1024]);
     void closeSocket();
 };
 #endif

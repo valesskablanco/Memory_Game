@@ -25,7 +25,6 @@ class Server{
 
     public:
     Server();
-    void RequestHandler(char Request[1024]);
-    void CloseSocket();
+    void RequestHandler();
 };
 #endif

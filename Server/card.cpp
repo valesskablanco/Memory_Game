@@ -12,19 +12,19 @@ void card::getImage(int ID){
     switch (ID)
     {
     case 0:
-        this->img= "Niall.png";
+        this->img= "/assets/star.png";
         break;
     case 1:
-        this->img = "Liam.png";
+        this->img = "/assets/square.png";
         break;
     case 2:
-        this->img = "Zayn.png";
+        this->img = "/assets/circle.png";
         break;
     case 3:
-        this->img = "Harry.png";
+        this->img = "/assets/heart.png";
         break;
     case 4:
-        this->img = "Louis.png";
+        this->img = "/assets/triangle.png";
         break;
     }
 }

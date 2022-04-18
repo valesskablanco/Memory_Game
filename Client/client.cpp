@@ -38,19 +38,69 @@ Client::Client()
     }
 }
 
-void Client::send()
-{
+/**
+ * 1 byte operacion a realizar:
+ *  - ejemplo: obtener dimensiones del mazo
+ *      - Envio 0 (1 byte)
+ *      - Recibo 2 byte: primer byte son las filas y segunda byte son las columnas
+ *      - Server handler:
+ *          msg[0] == '0'?
+ *          request_handler.send_dims(buffer); -> responder inmediatamente
+ *          char* response/string msg = request_handler.handle_dims(buffer); -> te da la respuesta
+ *          request_handler.handle_dims(buffer, response); -> te da la respuesta en char response[]
+ *          In request handle:
+ *              int i = (int) msg[1]
+ *              int j = (int) msg[2]
+ *  - 0 obtener carta
+ *      - Envio 0 - i - j (3 byte)
+ *      - Recibo base 64 de la carta
+ *  - 1 comparar cartas
+ *      - Envio 1 - i1 - j1 - i2 - j2 (5 bytes)
+ *      - Recibo true o false (0 o 1) (1 byte)
+ *  - 2 verificar si esta en memoria
+ *      - Envio 2 - i - j (3 bytes)
+ *      - Recibo true o false (0 o 1) (1 byte)
+ */
 
-    cout << "Write your message: ";
-    cin >> this->buffer;
-    write(clientsocket, buffer, strlen(buffer));
-    memset(buffer, 0, sizeof(buffer));
+//
+
+void Client::requestHandler(char Request[1024])
+{
+    // First, sending the request
+    this->buffer = Request;
+    write(clientsocket, this->buffer, strlen(this->buffer));
+    //memset(buffer, 0, sizeof(buffer));
     cout << "\n Message sent \n"
          << endl;
+
+    // Reading the server's response
+    char operation = this->buffer[0];
+
+    if (operation == "0")
+    {
+        read(clientsocket, this->buffer, sizeof(this->buffer));
+        //return base 64
+    }
+    else if (operation == "1")
+    {
+        read(clientsocket, this->buffer, sizeof(this->buffer));
+        //return 0 or 1
+    }
+    else if (operation == "2")
+    {
+        read(clientsocket, this->buffer, sizeof(this->buffer));
+        //return 0 or 1
+    }
+    
 }
 
 void Client::closeSocket()
 {
     close(clientsocket);
     cout << "Socket closed" << endl;
+}
+
+void Client::decode()
+{
+    //decodificar la imagen en base 64
 }
