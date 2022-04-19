@@ -34,8 +34,12 @@ void dataStruct::createFile()
             setFCard(i, j, n, 0);
             types.erase(types.begin() + random);
             size -= 1;
+
+            cout << "Card " << i << "," << j << ": " << n << endl;
         }
     }
+
+    cout << endl;
 }
 
 // reading a binary file
@@ -44,19 +48,18 @@ card dataStruct::getFCard(int i, int j)
 {
 
     fstream file;
+    char *buffer = (char *)malloc(sizeof(Card));
 
     file.open("cards.txt", fstream::in | fstream::out | fstream::binary);
 
-    file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), ios::beg); // 6 is the amount of cards in a row
-    char *buffer = (char *)malloc(sizeof(Card));
+    file.seekg(i * COLUMNS * sizeof(Card) + j * sizeof(Card), ios::beg); // 6 is the amount of cards in a row
     file.read(buffer, sizeof(Card));
+    file.close();
 
     Card *c = (Card *)buffer;                             // instance the Struct Card
     card actualCard = card(c->i, c->j, c->ID, c->status); // instance the Class Card
-
-    actualCard.getPath(c->ID);
-    file.close();
-    buffer = NULL;
+    cout << "Getting Card " << c->i << "," << c->j << ": " << c->ID << endl;
+    delete buffer;
 
     return actualCard;
 }
@@ -76,7 +79,7 @@ void dataStruct::setFCard(int i, int j, int ID, int status)
 
     if (file)
     {
-        file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), fstream::beg); // 6 is the amount of cards in a row
+        file.seekg(i * COLUMNS * sizeof(Card) + j * sizeof(Card), fstream::beg); // 6 is the amount of cards in a row
         file.write((char *)&newCard, sizeof(Card));
         file.close();
     }
@@ -167,8 +170,12 @@ char dataStruct::verify(int i1, int j1, int i2, int j2)
     card Card1 = getFCard(i1, j1);
     card Card2 = getFCard(i2, j2);
 
+    cout << Card1.ID << endl;
+    cout << Card2.ID << endl;
+
     if (Card1.ID == Card2.ID)
     {
+        shuffle();
         return '1';
     }
     else

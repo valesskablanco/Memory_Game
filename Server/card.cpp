@@ -11,41 +11,43 @@ card::card(int i, int j, int ID, int status)
     this->status = status;
 }
 
-void card::getPath(int ID)
+void card::getPath()
 {
-    switch (ID)
+    switch (this->ID)
     {
     case 0:
-        this->path = "/assets/star.png";
+        this->path = "./assets/star.png";
         break;
     case 1:
-        this->path = "/assets/square.png";
+        this->path = "./assets/square.png";
         break;
     case 2:
-        this->path = "/assets/circle.png";
+        this->path = "./assets/circle.png";
         break;
     case 3:
-        this->path = "/assets/heart.png";
+        this->path = "./assets/heart.png";
         break;
     case 4:
-        this->path = "/assets/triangle.png";
+        this->path = "./assets/triangle.png";
         break;
     }
 }
 
-void card::encodeImg(string path)
+void card::encodeImg()
 {
-    ifstream image(path, ios::in | ios::binary);
+    getPath();
+    ifstream image(this->path, ios::in | ios::binary);
 
     while (!image.eof())
     {
         ch = image.get();
-        img.push_back(ch);
+        this->img.push_back(ch);
     }
     image.close();
 }
 
 void card::print()
 {
-    cout << this->i << " " << this->j << " " << this->ID << " " << this->status << endl;
+    cout << this->path << endl;
+    cout << this->img.size() << endl;
 }

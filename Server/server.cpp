@@ -52,6 +52,7 @@ Server::Server()
             while (true)
             {
                 client = accept(server, (struct sockaddr *)&client_address, &client_len);
+
                 if (client < 0)
                 {
                     cout << "\n Error to accept client \n"
@@ -61,9 +62,11 @@ Server::Server()
                 {
                     cout << "\n Client accepted \n"
                          << endl;
-
-                    read(client, this->buffer, BUFFER_SIZE);
-                    requestHandler();
+                    while (true)
+                    {
+                        read(client, this->buffer, BUFFER_SIZE);
+                        requestHandler();
+                    }
                 }
             }
         }
@@ -72,33 +75,54 @@ Server::Server()
 
 void Server::requestHandler()
 {
-    cout << "Handling Request \n"
-         << endl;
-
+    cout << this->buffer[0] << this->buffer[1] << this->buffer[2] << endl;
     char operation = this->buffer[0];
 
     if (operation == '0')
     {
-        // return encoded img
-        int i = this->buffer[1];
-        int j = this->buffer[2];
+        // return 0 or 1 (if it is in memory) and encoded img
+        int i = this->buffer[1] - '0';
+        int j = this->buffer[2] - '0';
+
+        cout << "Getting " << i << "," << j << endl;
 
         card Card = pagedMemory.getFCard(i, j);
-        int ID = Card.ID;
 
-        Card.encodeImg(Card.getPath(ID)); //PROBLEMA CON ESTO
-        strcpy(this->buffer, Card.img);
+        Card.encodeImg();
+
+        memset(this->buffer, 0, sizeof(this->buffer));
+
+        // char verify
+        this->buffer[0] = pagedMemory.getCardfromMemory(i, j);
+
+        // image size
+        int img_size = Card.img.size();
+        this->buffer[1] = img_size / 100;
+        this->buffer[2] = (img_size / 10) % 10;
+        this->buffer[3] = img_size % 10;
+
+        // Writing buffer
+
+        for (int i = 0; i < img_size; ++i)
+        {
+            this->buffer[i + 4] = Card.img[i];
+        }
+
+        cout << "Caracteres enviados: " << img_size << endl;
+        cout << write(client, this->buffer, img_size + 4) << endl;
     }
     else if (operation == '1')
     {
-        int i1 = this->buffer[1];
-        int j1 = this->buffer[2];
-        int i2 = this->buffer[3];
-        int j3 = this->buffer[4];
+        int i1 = this->buffer[1] - '0';
+        int j1 = this->buffer[2] - '0';
+        int i2 = this->buffer[3] - '0';
+        int j2 = this->buffer[4] - '0';
 
         // return 0 or 1
-        strcpy(this->buffer, "verifying equals\0");
+        char equals = pagedMemory.verify(i1, j1, i2, j2);
+        memset(this->buffer, 0, sizeof(this->buffer));
+        strcpy(this->buffer, &equals);
+        write(client, this->buffer, 1);
     }
 
-    write(client, this->buffer, strlen(this->buffer));
 }

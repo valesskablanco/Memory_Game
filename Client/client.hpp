@@ -19,14 +19,13 @@ class Client
 private:
     int clientsocket;
     struct sockaddr_in serverAddress;
-    char buffer[BUFFER_SIZE];
-    char ch;
+    char buffer[1024];
 
 public:
     Client();
-    void requestHandler();
-    void send(char Request[BUFFER_SIZE]);
+    char requestHandler();
+    char send(char Request[BUFFER_SIZE]);
     void closeSocket();
-    void decodeImg(string img);
+    void decodeImg(int img_size);
 };
 #endif

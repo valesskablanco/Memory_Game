@@ -21,9 +21,9 @@ public:
     string path;
     string img;
     card(int i, int j, int ID, int status);
-    void getPath(int ID);
+    void getPath();
+    void encodeImg();
     void print();
-    void encodeImg(string path);
 
 private:
     char ch;

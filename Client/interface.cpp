@@ -7,21 +7,20 @@ Interface::Interface()
 {
     // create the window
     window = new sf::RenderWindow(sf::VideoMode(WINDOW_W, WINDOW_H), "Memory Game");
-    // create a new client
-    client = new Client();
-    // if needed, use this->client->Send() to send information to the server
 
     for (int i = 0; i < ROWS; ++i)
     {
         for (int j = 0; j < COLUMNS; ++j)
         {
-            buttons[i] = Button(i, j);
+            buttons.push_back(Button(i, j));
         }
     }
+
 }
 
 void Interface::run()
 {
+    window->setFramerateLimit(FPS);
     Event event;
 
     // Labels
@@ -34,6 +33,7 @@ void Interface::run()
             if (event.type == sf::Event::Closed)
             {
                 window->close();
+                client.closeSocket();
                 return;
             }
         }
@@ -46,8 +46,6 @@ void Interface::run()
         window->display();
     }
 
-    // when game finishes close socket
-    this->client->closeSocket();
 }
 
 void Interface::paintMatrix()
@@ -58,7 +56,7 @@ void Interface::paintMatrix()
 
     for (int i = 0; i < BOARD_SIZE; ++i)
     {
-        buttons[i].draw(window, x, y);
+        buttons[i].draw(window, client, x, y);
         x += (CARD_W + SPACE_W);
 
         if (x >= 540)
@@ -68,18 +66,10 @@ void Interface::paintMatrix()
         }
     }
 }
-/*
-void Interface::updateButtons()
-{
-    for (int i = 0; i < BOARD_SIZE; ++i)
-    {
-        // this->buttons[i]->update(window->mapPixelToCoords(sf::Mouse::getPosition(*window)));
-    }
-}*/
 
 void Interface::drawLabels()
 {
-    this->font.loadFromFile("./font.ttf");
+    this->font.loadFromFile("./assets/font.ttf");
 
     this->player_1.setFont(font);
     this->player_1.setCharacterSize(24);
@@ -121,3 +111,24 @@ void Interface::updatePoints(int player)
         this->points_2 += 1;
     }
 }
+
+/*
+bool Interface::checkPressed()
+{
+    int n = 0;
+
+    for (int i = 0; i < buttons.size(); ++i)
+    {
+        if (buttons[i].buttonState == "BTN_PRESSED")
+        {
+            n += 1;
+
+            if (n == 2)
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}*/
