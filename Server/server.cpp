@@ -75,7 +75,6 @@ Server::Server()
 
 void Server::requestHandler()
 {
-    cout << this->buffer[0] << this->buffer[1] << this->buffer[2] << endl;
     char operation = this->buffer[0];
 
     if (operation == '0')
@@ -108,8 +107,7 @@ void Server::requestHandler()
             this->buffer[i + 4] = Card.img[i];
         }
 
-        cout << "Caracteres enviados: " << img_size << endl;
-        cout << write(client, this->buffer, img_size + 4) << endl;
+        write(client, this->buffer, img_size + 4);
     }
     else if (operation == '1')
     {

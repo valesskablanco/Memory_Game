@@ -58,7 +58,6 @@ card dataStruct::getFCard(int i, int j)
 
     Card *c = (Card *)buffer;                             // instance the Struct Card
     card actualCard = card(c->i, c->j, c->ID, c->status); // instance the Class Card
-    cout << "Getting Card " << c->i << "," << c->j << ": " << c->ID << endl;
     delete buffer;
 
     return actualCard;
@@ -167,11 +166,9 @@ void dataStruct::shuffle()
 
 char dataStruct::verify(int i1, int j1, int i2, int j2)
 {
+    
     card Card1 = getFCard(i1, j1);
     card Card2 = getFCard(i2, j2);
-
-    cout << Card1.ID << endl;
-    cout << Card2.ID << endl;
 
     if (Card1.ID == Card2.ID)
     {

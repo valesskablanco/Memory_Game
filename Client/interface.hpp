@@ -14,6 +14,7 @@
 #include <cstdlib>
 #include <vector>
 #include <array>
+#include <unistd.h>
 #include "client.hpp"
 #include "button.hpp"
 #include "../Utils/common.hpp"
@@ -27,8 +28,11 @@ public:
     void run();
     void paintMatrix();
     void drawLabels();
+    void updateTurn();
     void updatePoints(int player);
-    //bool checkPressed();
+    bool checkPressed();
+    bool checkEquals();
+    string winner();
 
 private:
     RenderWindow *window;
@@ -42,5 +46,7 @@ private:
     Font font;
     int points_1;
     int points_2;
+    int turn = 1;
+    vector<Button> playingButtons;
 };
 #endif

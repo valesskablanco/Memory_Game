@@ -56,7 +56,6 @@ char Client::requestHandler()
 {
     // Reading the server's response
     char operation = this->buffer[0];
-    cout << "Estoy leyendo" << endl;
     memset(this->buffer, 0, sizeof(this->buffer));
     read(clientsocket, this->buffer, sizeof(this->buffer));
 
@@ -75,7 +74,6 @@ char Client::requestHandler()
     {
         result = this->buffer[0];
     }
-    cout << "Termine" << endl;
     return result;
 }
 
