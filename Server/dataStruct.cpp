@@ -34,8 +34,12 @@ void dataStruct::createFile()
             setFCard(i, j, n, 0);
             types.erase(types.begin() + random);
             size -= 1;
+
+            cout << "Card " << i << "," << j << ": " << n << endl;
         }
     }
+
+    cout << endl;
 }
 
 // reading a binary file
@@ -44,19 +48,17 @@ card dataStruct::getFCard(int i, int j)
 {
 
     fstream file;
+    char *buffer = (char *)malloc(sizeof(Card));
 
     file.open("cards.txt", fstream::in | fstream::out | fstream::binary);
 
-    file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), ios::beg); // 6 is the amount of cards in a row
-    char *buffer = (char *)malloc(sizeof(Card));
+    file.seekg(i * COLUMNS * sizeof(Card) + j * sizeof(Card), ios::beg); // 6 is the amount of cards in a row
     file.read(buffer, sizeof(Card));
+    file.close();
 
     Card *c = (Card *)buffer;                             // instance the Struct Card
     card actualCard = card(c->i, c->j, c->ID, c->status); // instance the Class Card
-
-    actualCard.getImage(c->ID);
-    file.close();
-    buffer = NULL;
+    delete buffer;
 
     return actualCard;
 }
@@ -76,7 +78,7 @@ void dataStruct::setFCard(int i, int j, int ID, int status)
 
     if (file)
     {
-        file.seekg(i * 6 * sizeof(Card) + j * sizeof(Card), fstream::beg); // 6 is the amount of cards in a row
+        file.seekg(i * COLUMNS * sizeof(Card) + j * sizeof(Card), fstream::beg); // 6 is the amount of cards in a row
         file.write((char *)&newCard, sizeof(Card));
         file.close();
     }
@@ -115,17 +117,17 @@ int dataStruct::isCardinMemory(int i, int j)
     return -1;
 }
 
-card dataStruct::getCardfromMemory(int i, int j)
+char dataStruct::getCardfromMemory(int i, int j)
 {
     int n = isCardinMemory(i, j);
     if (n >= 0)
     {
-        return this->memory[n];
+        return '1';
     }
     else
     {
-        card Card = replaceCard(i, j);
-        return Card;
+        replaceCard(i, j);
+        return '0';
     }
 }
 
@@ -139,7 +141,7 @@ void dataStruct::printMemory()
 }
 
 // this method loads a new card to the memory, replacing a random one
-card dataStruct::replaceCard(int i, int j)
+void dataStruct::replaceCard(int i, int j)
 {
     srand(time(0));
 
@@ -152,7 +154,6 @@ card dataStruct::replaceCard(int i, int j)
 
     card Card = getFCard(i, j);
     this->memory.push_back(Card);
-    return Card;
 }
 
 void dataStruct::shuffle()
@@ -161,4 +162,21 @@ void dataStruct::shuffle()
     this->memory_size = this->matrix_size / 3;
     createPagedMemory(this->memory_size);
     cout << "Shuffle completed \n";
+}
+
+char dataStruct::verify(int i1, int j1, int i2, int j2)
+{
+    
+    card Card1 = getFCard(i1, j1);
+    card Card2 = getFCard(i2, j2);
+
+    if (Card1.ID == Card2.ID)
+    {
+        shuffle();
+        return '1';
+    }
+    else
+    {
+        return '0';
+    }
 }

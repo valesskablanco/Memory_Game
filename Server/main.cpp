@@ -3,10 +3,6 @@
 
 int main()
 {
-    //Server *Servidor = new Server();
+    Server *Servidor = new Server();
 
-    dataStruct *pagedMemory = new dataStruct();
-
-    pagedMemory->printMemory();
-    pagedMemory->shuffle();
 }

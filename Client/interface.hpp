@@ -8,31 +8,36 @@
 #define CARD_W 75
 #define SPACE_H 15
 #define SPACE_W 15
+#define FPS 60
 
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
+#include <vector>
+#include <array>
+#include <unistd.h>
 #include "client.hpp"
 #include "button.hpp"
 #include "../Utils/common.hpp"
 
 using namespace sf;
+using namespace std;
 class Interface
 {
 public:
-    /**
-     * @brief Constructor.
-     */
     Interface();
     void run();
     void paintMatrix();
-    void updateButtons();
     void drawLabels();
+    void updateTurn();
     void updatePoints(int player);
+    bool checkPressed();
+    bool checkEquals();
+    string winner();
 
 private:
     RenderWindow *window;
-    Client *client;
-    Button buttons[BOARD_SIZE];
+    Client client;
+    vector<Button> buttons;
     Text player_1;
     Text player_2;
     Text player_points_1;
@@ -41,5 +46,7 @@ private:
     Font font;
     int points_1;
     int points_2;
+    int turn = 1;
+    vector<Button> playingButtons;
 };
 #endif

@@ -6,20 +6,27 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
-#include <string.h>
 #include <iostream>
 #include <netdb.h>
 #include <arpa/inet.h>
+#include <fstream>
 #include <string>
+#include <string.h>
 
+using namespace std;
 class card
 {
 public:
     int i, j, ID, status;
-    std::string img;
+    string path;
+    string img;
     card(int i, int j, int ID, int status);
-    void getImage(int ID);
+    void getPath();
+    void encodeImg();
     void print();
+
+private:
+    char ch;
 };
 
 #endif /* card_h */

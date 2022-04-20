@@ -8,6 +8,7 @@
 #include <netinet/in.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
@@ -22,7 +23,9 @@ private:
 
 public:
     Client();
-    void requestHandler(char Request[1024]);
+    char requestHandler();
+    char send(char Request[BUFFER_SIZE]);
     void closeSocket();
+    void decodeImg(int img_size);
 };
 #endif

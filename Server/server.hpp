@@ -6,25 +6,29 @@
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
+#include <cstdlib>
 #include <string.h>
 #include <iostream>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
+#include "dataStruct.hpp"
+#include "card.hpp"
 #include "../Utils/common.hpp"
 
-class Server{
-    private: 
+class Server
+{
+private:
     int server, client;
     struct sockaddr_in server_address, client_address;
     int message_len;
     unsigned int client_len;
     int server_len;
-    char buffer[1024];
+    char buffer[BUFFER_SIZE];
+    dataStruct pagedMemory;
 
-
-    public:
+public:
     Server();
-    void RequestHandler();
+    void requestHandler();
 };
 #endif

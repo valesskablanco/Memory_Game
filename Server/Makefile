@@ -1,9 +1,15 @@
 .PONY: build run
 
-build:
+CC=g++
+CPP_OUT=main
+CPP_SRC=*.cpp
+CPP_FLAGS=-Wall -O2
 
-		g++ -o main *.cpp
+build:
+		@$(CC) -o $(CPP_OUT) $(CPP_SRC) $(CPP_FLAGS)
 
 run:
+		@./$(CPP_OUT)
 
-		./main
+clean:
+		@rm $(CPP_OUT)
