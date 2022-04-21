@@ -83,8 +83,6 @@ void Server::requestHandler()
         int i = this->buffer[1] - '0';
         int j = this->buffer[2] - '0';
 
-        cout << "Getting " << i << "," << j << endl;
-
         card Card = pagedMemory.getFCard(i, j);
 
         Card.encodeImg();

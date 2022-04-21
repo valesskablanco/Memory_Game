@@ -16,7 +16,7 @@ Interface::Interface()
         }
     }
 
-    this->instructions.setString("Turno del Jugador 1");
+    this->instructions.setString("Player's 1 turn");
 }
 
 void Interface::run()
@@ -43,20 +43,14 @@ void Interface::run()
 
         if (this->checkPressed())
         {
-            cout << "Second card pressed" << endl;
-            cout << "Antes de clear: " << this->playingButtons.size() << endl;
             usleep(5000);
 
             if (this->checkEquals())
             {
-                this->instructions.setString("You found a match");
-                usleep(1000000);
-                cout << "You found a match!" << endl;
-                usleep(5000);
                 updatePoints(this->turn);
-                updateTurn();
                 usleep(2000000);
-                // quitar cartas del array
+
+                // take cards out
                 int i = 0;
 
                 while (i < this->buttons.size())
@@ -66,19 +60,17 @@ void Interface::run()
                     else
                         i++;
                 }
+                updateTurn();
             }
             else
             {
-                this->instructions.setString("Ups! Wrong guess!");
-                usleep(1000000);
-                cout << "Try again!" << endl;
-                usleep(5000);
-                updateTurn();
                 usleep(2000000);
 
-                // Volver cartas
+                // cards to idle status
                 for (int i = 0; i < this->buttons.size(); ++i)
                     this->buttons[i].buttonState = BTN_IDLE;
+
+                updateTurn();
             }
         }
 
@@ -176,12 +168,12 @@ void Interface::updateTurn()
     if (this->turn == 1)
     {
         this->turn = 2;
-        this->instructions.setString("Turno del Jugador 2");
+        this->instructions.setString("Player's 2 turn");
     }
     else
     {
         this->turn = 1;
-        this->instructions.setString("Turno del Jugador 1");
+        this->instructions.setString("Player's 1 turn");
     }
 }
 

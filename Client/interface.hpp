@@ -2,7 +2,7 @@
 #define interface_h
 
 #define WINDOW_W 800
-#define WINDOW_H 800
+#define WINDOW_H 650
 #define BOARD_SIZE 30
 #define CARD_H 100
 #define CARD_W 75

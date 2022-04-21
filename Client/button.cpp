@@ -30,8 +30,7 @@ void Button::draw(RenderWindow *window, Client client, int x, int y)
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
             {
                 buttonState = BTN_PRESSED;
-                string request = "0" + to_string(this->i) + to_string(this->j);
-                cout << "Asking for: " << this->i << "," << this->j << endl;
+                string request = "0" + to_string(this->i) + to_string(this->j);\
                 char char_array[BUFFER_SIZE];
                 char_array[0] = '0';
                 char_array[1] = this->i + '0';

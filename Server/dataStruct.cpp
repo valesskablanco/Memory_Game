@@ -34,12 +34,8 @@ void dataStruct::createFile()
             setFCard(i, j, n, 0);
             types.erase(types.begin() + random);
             size -= 1;
-
-            cout << "Card " << i << "," << j << ": " << n << endl;
         }
     }
-
-    cout << endl;
 }
 
 // reading a binary file
@@ -131,15 +127,6 @@ char dataStruct::getCardfromMemory(int i, int j)
     }
 }
 
-void dataStruct::printMemory()
-{
-    int lim = this->memory_size;
-    for (int n = 0; n < lim; n++)
-    {
-        this->memory[n].print();
-    }
-}
-
 // this method loads a new card to the memory, replacing a random one
 void dataStruct::replaceCard(int i, int j)
 {
@@ -161,7 +148,6 @@ void dataStruct::shuffle()
     this->matrix_size -= 2;
     this->memory_size = this->matrix_size / 3;
     createPagedMemory(this->memory_size);
-    cout << "Shuffle completed \n";
 }
 
 char dataStruct::verify(int i1, int j1, int i2, int j2)
@@ -169,7 +155,7 @@ char dataStruct::verify(int i1, int j1, int i2, int j2)
     
     card Card1 = getFCard(i1, j1);
     card Card2 = getFCard(i2, j2);
-
+ 
     if (Card1.ID == Card2.ID)
     {
         shuffle();

@@ -45,9 +45,3 @@ void card::encodeImg()
     }
     image.close();
 }
-
-void card::print()
-{
-    cout << this->path << endl;
-    cout << this->img.size() << endl;
-}
