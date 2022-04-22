@@ -23,7 +23,6 @@ public:
     card(int i, int j, int ID, int status);
     void getPath();
     void encodeImg();
-    void print();
 
 private:
     char ch;

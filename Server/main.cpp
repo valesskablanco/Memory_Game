@@ -1,8 +1,8 @@
-#include "server.hpp"
-#include "dataStruct.hpp"
+#include "interface.hpp"
 
 int main()
 {
-    Server *Servidor = new Server();
-
+    Interface *server_gui = new Interface();
+    server_gui->run();
+    delete server_gui;
 }

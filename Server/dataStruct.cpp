@@ -9,7 +9,11 @@ struct Card
 
     int i, j, ID, status;
 };
-
+/**
+ * @brief Construct a new dataStruct object
+ * It creates a file randomly
+ * It creates a vector cards from the file
+ */
 dataStruct::dataStruct()
 {
     createFile();
@@ -18,6 +22,9 @@ dataStruct::dataStruct()
     cout << "Paged Memory Loaded \n";
 }
 
+/**
+ * @brief Creates a file with random sorted cards
+ */
 void dataStruct::createFile()
 {
     srand(time(0));
@@ -34,15 +41,16 @@ void dataStruct::createFile()
             setFCard(i, j, n, 0);
             types.erase(types.begin() + random);
             size -= 1;
-
-            cout << "Card " << i << "," << j << ": " << n << endl;
         }
     }
-
-    cout << endl;
 }
 
-// reading a binary file
+/**
+ * @brief Reads a binary file
+ * @param i position i in disk's matrix
+ * @param j position j in disk's matrix
+ * @return Card 
+ */
 
 card dataStruct::getFCard(int i, int j)
 {
@@ -63,6 +71,11 @@ card dataStruct::getFCard(int i, int j)
     return actualCard;
 }
 
+/**
+ * @brief Writes a binary file
+ * @param i position i in disk's matrix
+ * @param j position j in disk's matrix 
+ */
 void dataStruct::setFCard(int i, int j, int ID, int status)
 {
 
@@ -88,6 +101,10 @@ void dataStruct::setFCard(int i, int j, int ID, int status)
     }
 }
 
+/**
+ * @brief Loads a third part of the disk cards in memory
+ * @param size of the vector needed
+ */
 void dataStruct::createPagedMemory(int size)
 {
     // create a vector with the loaded cards
@@ -103,6 +120,12 @@ void dataStruct::createPagedMemory(int size)
     }
 }
 
+/**
+ * @brief Checks if the card is loaded in memory
+ * @param i position i in memory vector
+ * @param j position j in memory vector
+ * @return int
+ */
 int dataStruct::isCardinMemory(int i, int j)
 {
     int lim = this->memory_size;
@@ -117,30 +140,34 @@ int dataStruct::isCardinMemory(int i, int j)
     return -1;
 }
 
+/**
+ * @brief Looks for a card in memory and updates page faults/hits
+ * @param i position i in memory vector
+ * @param j position j in memory vector
+ * @return char
+ */
 char dataStruct::getCardfromMemory(int i, int j)
 {
+
     int n = isCardinMemory(i, j);
     if (n >= 0)
     {
+        this->page_hits++;
         return '1';
     }
     else
     {
+        this->page_faults++;
         replaceCard(i, j);
         return '0';
     }
 }
 
-void dataStruct::printMemory()
-{
-    int lim = this->memory_size;
-    for (int n = 0; n < lim; n++)
-    {
-        this->memory[n].print();
-    }
-}
-
-// this method loads a new card to the memory, replacing a random one
+/**
+ * @brief replaces a card from memory
+ * @param i position i in memory vector
+ * @param j position j in memory vector
+ */
 void dataStruct::replaceCard(int i, int j)
 {
     srand(time(0));
@@ -156,20 +183,37 @@ void dataStruct::replaceCard(int i, int j)
     this->memory.push_back(Card);
 }
 
+/**
+ * @brief Changes randomly the card in memory
+ */
 void dataStruct::shuffle()
 {
     this->matrix_size -= 2;
-    this->memory_size = this->matrix_size / 3;
-    createPagedMemory(this->memory_size);
-    cout << "Shuffle completed \n";
+    if (this->matrix_size > 3)
+    {
+        this->memory_size = this->matrix_size / 3;
+        createPagedMemory(this->memory_size);
+    }
+    else
+    {
+        createPagedMemory(1);
+    }
 }
 
+/**
+ * @brief Veryfis if two card have the same ID
+ * @param i1 position i1 in file
+ * @param j1 position j1 in file
+ * @param i2 position i2 in file
+ * @param j2 position j2 in file
+ * @return char
+ */
 char dataStruct::verify(int i1, int j1, int i2, int j2)
 {
     
     card Card1 = getFCard(i1, j1);
     card Card2 = getFCard(i2, j2);
-
+ 
     if (Card1.ID == Card2.ID)
     {
         shuffle();
@@ -179,4 +223,28 @@ char dataStruct::verify(int i1, int j1, int i2, int j2)
     {
         return '0';
     }
+}
+/**
+ * @brief Gets the memory vector size
+ * @return int
+ */
+int dataStruct::getMemorySize()
+{
+    return (this->memory.size() * sizeof(Card));
+}
+/**
+ * @brief Gets the page fault from paged memory
+ * @return int
+ */
+int dataStruct::getPageFaults()
+{
+    return this->page_faults;
+}
+/**
+ * @brief Gets the page hits from paged memory
+ * @return int
+ */
+int dataStruct::getPageHits()
+{
+    return this->page_hits;
 }

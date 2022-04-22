@@ -30,16 +30,20 @@ class dataStruct {
         void createPagedMemory(int size);
         int isCardinMemory(int i, int j);
         char getCardfromMemory(int i, int j);
-        void printMemory();
         void replaceCard(int i, int j);
         void shuffle();
         char verify(int i1, int j1, int i2, int j2);
+        int getMemorySize();
+        int getPageFaults();
+        int getPageHits();
 
     private: 
         vector<card> memory;
         int memory_size;
         int matrix_size = 30;
         int flag;
+        int page_faults = 0;
+        int page_hits = 0;
 };
 
 #endif

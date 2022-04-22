@@ -8,12 +8,14 @@
 #include <netinet/in.h>
 #include <cstdlib>
 #include <string.h>
+#include <thread>
 #include <iostream>
 #include <netdb.h>
 #include <arpa/inet.h>
 #include <string>
 #include "dataStruct.hpp"
 #include "card.hpp"
+//#include "interface.hpp"
 #include "../Utils/common.hpp"
 
 class Server
@@ -26,9 +28,14 @@ private:
     int server_len;
     char buffer[BUFFER_SIZE];
     dataStruct pagedMemory;
+    
 
 public:
     Server();
     void requestHandler();
+    int getMemorySize();
+    int getPageFaults();
+    int getPageHits();
+    void run();
 };
 #endif
