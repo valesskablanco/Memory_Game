@@ -2,6 +2,11 @@
 
 using namespace std;
 
+/**
+ * @brief Construct a Client object
+ * Creates the client socket
+ * Connects the client to the server
+ */
 Client::Client()
 {
 
@@ -38,20 +43,9 @@ Client::Client()
 }
 
 /**
- * 1 byte operacion a realizar:
- *
- *  - 0 obtener carta
- *      - Envio 0 - i - j (3 byte)
- *      - Recibo true o false (0 o 1) (1 byte)
- *      - Recibo tamano de la imagen codificada
- *      - Recibo binario de la carta (n bytes)
- *  - 1 comparar cartas
- *      - Envio 1 - i1 - j1 - i2 - j2 (5 bytes)
- *      - Recibo true o false (0 o 1) (1 byte)
+ * @brief Handles the Server response
+ * @return char
  */
-
-//
-
 char Client::requestHandler()
 {
     // Reading the server's response
@@ -77,6 +71,11 @@ char Client::requestHandler()
     return result;
 }
 
+/**
+ * @brief sends a buffer through the socket and handles the response
+ * @param Request a char array with the request
+ * @return char
+ */
 char Client::send(char Request[BUFFER_SIZE])
 {
     strcpy(this->buffer, Request);
@@ -84,13 +83,19 @@ char Client::send(char Request[BUFFER_SIZE])
     return this->requestHandler();
 }
 
+/**
+ * @brief closes the client socket
+ */
 void Client::closeSocket()
 {
     close(clientsocket);
     cout << "Socket closed" << endl;
 }
 
-
+/**
+ * @brief decodes the image from binary and 
+ * rebuilds it
+ */
 void Client::decodeImg(int img_size)
 {
     ofstream image("./temp/rebuild.png", ios::out | ios::trunc);

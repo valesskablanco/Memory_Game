@@ -20,9 +20,11 @@ public:
     Button();
     Button(int i, int j);
     void draw(sf::RenderWindow *window, Client client, int x, int y);
+    bool isInMemory();
     BtnState buttonState;
     int i;
     int j;
+    int loaded;
 
 private:
     Texture texture;

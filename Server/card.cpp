@@ -2,15 +2,21 @@
 
 using namespace std;
 
+/**
+ * @brief Construct a new Card object
+ * Sets the atributes i, j, ID and status
+ */
 card::card(int i, int j, int ID, int status)
 {
-
     this->i = i;
     this->j = j;
     this->ID = ID;
     this->status = status;
 }
 
+/**
+ * @brief gets the path of the png
+ */
 void card::getPath()
 {
     switch (this->ID)
@@ -33,6 +39,9 @@ void card::getPath()
     }
 }
 
+/**
+ * @brief encodes the png to binary
+ */
 void card::encodeImg()
 {
     getPath();

@@ -2,6 +2,11 @@
 
 using namespace std;
 
+/**
+ * @brief Construct a new Server object
+ * Creates the server interface
+ * Creates a socket
+ */
 Server::Server()
 {
     // creating the paged memory
@@ -27,6 +32,12 @@ Server::Server()
     server_address.sin_addr.s_addr = inet_addr(server_ip);
     server_address.sin_port = htons(PORT);
 
+    thread run_server(&Server::run, this);
+    run_server.detach();
+}
+
+void Server::run()
+{
     // Bind the socket to the local port
     if (bind(server, (struct sockaddr *)&server_address, sizeof(server_address)) < 0)
     {
@@ -72,7 +83,9 @@ Server::Server()
         }
     }
 }
-
+/**
+ * @brief Manages the requests from the client
+ */
 void Server::requestHandler()
 {
     char operation = this->buffer[0];
@@ -121,4 +134,31 @@ void Server::requestHandler()
         write(client, this->buffer, 1);
     }
 
+}
+
+/**
+ * @brief Gets the memory size from the paged memory
+ * @return int
+ */
+int Server::getMemorySize()
+{
+    return this->pagedMemory.getMemorySize();
+}
+
+/**
+ * @brief Gets the page faults from paged memory
+ * @return int
+ */
+int Server::getPageFaults()
+{
+    return this->pagedMemory.getPageFaults();
+}
+
+/**
+ * @brief Gets the page hits from paged memory
+ * @return int
+ */
+int Server::getPageHits()
+{
+    return this->pagedMemory.getPageHits();
 }

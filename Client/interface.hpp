@@ -8,13 +8,13 @@
 #define CARD_W 75
 #define SPACE_H 15
 #define SPACE_W 15
-#define FPS 60
 
 #include <SFML/Graphics.hpp>
 #include <cstdlib>
 #include <vector>
 #include <array>
 #include <unistd.h>
+#include <string>
 #include "client.hpp"
 #include "button.hpp"
 #include "../Utils/common.hpp"
@@ -33,11 +33,14 @@ public:
     bool checkPressed();
     bool checkEquals();
     string winner();
+    bool checkMemory();
 
 private:
     RenderWindow *window;
     Client client;
     vector<Button> buttons;
+    string player1_name;
+    string player2_name;
     Text player_1;
     Text player_2;
     Text player_points_1;

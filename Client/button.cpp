@@ -3,6 +3,10 @@
 using namespace sf;
 using namespace std;
 
+/**
+ * @brief Construct a new Button object
+ * Sets the button state, i, j
+ */
 Button::Button() {}
 
 Button::Button(int i, int j)
@@ -14,6 +18,13 @@ Button::Button(int i, int j)
     buttonState = BTN_IDLE;
 }
 
+/**
+ * @brief Checks if the card is loaded in memory
+ * @param window where the button is going to be drawn
+ * @param client that sends requests
+ * @param x position to draw
+ * @param y position to draw
+ */
 void Button::draw(RenderWindow *window, Client client, int x, int y)
 {
     RectangleShape rect(Vector2f(75.f, 100.f));
@@ -36,9 +47,11 @@ void Button::draw(RenderWindow *window, Client client, int x, int y)
                 char_array[1] = this->i + '0';
                 char_array[2] = this->j + '0';
                 char_array[3] = '\0';
-                // strcpy(char_array, request.c_str());
 
-                client.send(char_array);
+                if (client.send(char_array) == '1')
+                {
+                    this->loaded = 1;
+                }
 
                 texture.loadFromFile("./temp/rebuild.png");
                 sprite.setTexture(texture);
@@ -65,8 +78,25 @@ void Button::draw(RenderWindow *window, Client client, int x, int y)
     break;
 
     default:
+        this->loaded = 0;
         rect.setFillColor(Color::Blue);
         window->draw(rect);
         break;
+    }
+}
+
+/**
+ * @brief Checks if the card is loaded in memory
+ * @return bool
+ */
+bool Button::isInMemory()
+{
+    if (this->loaded == 1)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

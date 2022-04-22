@@ -3,8 +3,22 @@
 using namespace std;
 using namespace sf;
 
+/**
+ * @brief Construct a new Interface object
+ * Asks for players names
+ * Creates the game window
+ * Creates a vector of buttons
+ * Sets the instructions text string
+ */
 Interface::Interface()
 {
+
+    // ask for players name
+    cout << "Enter Player's 1 name:" << endl;
+    cin >> player1_name;
+    cout << "Enter Player's 2 name:" << endl;
+    cin >> player2_name;
+
     // create the window
     window = new sf::RenderWindow(sf::VideoMode(WINDOW_W, WINDOW_H), "Memory Game");
 
@@ -16,9 +30,12 @@ Interface::Interface()
         }
     }
 
-    this->instructions.setString("Player's 1 turn");
+    this->instructions.setString(player1_name + " turn");
 }
 
+/**
+ * @brief runs the client interface
+ */
 void Interface::run()
 {
     window->setFramerateLimit(FPS);
@@ -47,6 +64,16 @@ void Interface::run()
 
             if (this->checkEquals())
             {
+                if (checkMemory())
+                {
+                    updatePoints(this->turn);
+                    this->instructions.setString("Extra points!");
+                    this->drawLabels();
+                    this->paintMatrix();
+                    window->display();
+                    usleep(5000);
+                }
+
                 updatePoints(this->turn);
                 usleep(2000000);
 
@@ -93,6 +120,9 @@ void Interface::run()
     }
 }
 
+/**
+ * @brief paint the buttons of the cards
+ */
 void Interface::paintMatrix()
 {
     // drawing cards
@@ -112,13 +142,16 @@ void Interface::paintMatrix()
     }
 }
 
+/**
+ * @brief draw each label of the interface
+ */
 void Interface::drawLabels()
 {
     this->font.loadFromFile("./assets/font.ttf");
 
     this->player_1.setFont(font);
     this->player_1.setCharacterSize(24);
-    this->player_1.setString("Player 1");
+    this->player_1.setString(player1_name);
     this->player_1.setFillColor(Color::Black);
     this->player_1.setPosition(600.f, 100.f);
     this->window->draw(this->player_1);
@@ -132,7 +165,7 @@ void Interface::drawLabels()
 
     this->player_2.setFont(font);
     this->player_2.setCharacterSize(24);
-    this->player_2.setString("Player 2");
+    this->player_2.setString(player2_name);
     this->player_2.setFillColor(Color::Black);
     this->player_2.setPosition(600.f, 200.f);
     this->window->draw(this->player_2);
@@ -151,6 +184,9 @@ void Interface::drawLabels()
     this->window->draw(this->instructions);
 }
 
+/**
+ * @brief adds one point to the corresponding player
+ */
 void Interface::updatePoints(int player)
 {
     if (player == 1)
@@ -163,54 +199,52 @@ void Interface::updatePoints(int player)
     }
 }
 
+/**
+ * @brief updates the players turn
+ */
 void Interface::updateTurn()
 {
     if (this->turn == 1)
     {
         this->turn = 2;
-        this->instructions.setString("Player's 2 turn");
+        this->instructions.setString(player2_name + " turn");
     }
     else
     {
         this->turn = 1;
-        this->instructions.setString("Player's 1 turn");
+        this->instructions.setString(player1_name + " turn");
     }
 }
 
+/**
+ * @brief checks if a button is pressed
+ * @return bool
+ */
 bool Interface::checkPressed()
 {
     int n = 0;
 
     for (int i = 0; i < buttons.size(); ++i)
     {
-        // Aqui vamos agregando cada uno de los botones que fue presionado
+        // push back every pressed button
         if (buttons[i].buttonState == 2)
         {
             this->playingButtons.push_back(buttons[i]);
             n++;
 
-            // Esto es equivalente al return true que tenias antes
             if (n == 2)
                 return true;
-            /*if (n == 1)
-            {
-                this->playingButtons.push_back(buttons[i]);
-            }
-            else if (n == 2 && (playingButtons[0].i == buttons[i].i && playingButtons[0].j == buttons[i].j))
-            {
-                n -= 1;
-            }
-            else if (n == 2 && (playingButtons[0].i != buttons[i].i && playingButtons[0].j != buttons[i].j))
-            {
-                this->playingButtons.push_back(buttons[i]);
-                return true;
-            }*/
         }
     }
 
     return false;
 }
 
+
+/**
+ * @brief checks if two cards have the same ID
+ * @return bool
+ */
 bool Interface::checkEquals()
 {
     int i1 = this->playingButtons[0].i;
@@ -226,32 +260,47 @@ bool Interface::checkEquals()
     char_array[4] = j2 + '0';
     char_array[5] = '\0';
 
-    if (client.send(char_array) == '0')
+    return (client.send(char_array) == '1');
+}
+
+/**
+ * @brief shows the winner
+ * @return string
+ */
+string Interface::winner()
+{
+    if (this->points_1 > this->points_2)
     {
-        return false;
+        return (player1_name + " WINS");
     }
-    else if (client.send(char_array) == '1')
+    else if (this->points_2 > this->points_1)
+    {
+        return (player2_name + " WINS");
+    }
+    else
+    {
+        return "TIE";
+    }
+}
+/**
+ * @brief Checks if any of the two cards is loaded in memory
+ * @return bool
+ */
+bool Interface::checkMemory()
+{
+    Button button1 = this->playingButtons[0];
+    Button button2 = this->playingButtons[1];
+
+    if (button1.loaded == 1)
+    {
+        return true;
+    }
+    else if (button2.loaded == 1)
     {
         return true;
     }
     else
     {
         return false;
-    }
-}
-
-string Interface::winner()
-{
-    if (this->points_1 > this->points_2)
-    {
-        return "PLAYER 1 WINS";
-    }
-    else if (this->points_2 > this->points_1)
-    {
-        return "PLAYER 2 WINS";
-    }
-    else
-    {
-        return "TIE";
     }
 }
